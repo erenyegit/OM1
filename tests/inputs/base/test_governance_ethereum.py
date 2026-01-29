@@ -219,7 +219,7 @@ async def test_load_rules_is_non_blocking():
     async def concurrent_task():
         nonlocal call_start, call_end
         for i in range(10):
-            if call_start and call_end is None:
+            if call_start is not None and call_end is None:
                 results.append(time.time())
             await asyncio.sleep(0.1)
 
@@ -255,7 +255,7 @@ async def test_poll_is_non_blocking():
 
     async def concurrent_ticker():
         for i in range(20):
-            if poll_start and poll_end is None:
+            if poll_start is not None and poll_end is None:
                 results.append(time.time())
             await asyncio.sleep(0.05)
 
